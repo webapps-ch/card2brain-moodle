@@ -44,8 +44,6 @@ if (!$cardtobrain = $DB->get_record('cardtobrain', array('id'=> $cm->instance)))
 
 require_login($course, true, $cm);
 
-$ssoUrl = '';
-
 
 // Print the page header.
 $PAGE->set_url('/mod/cardtobrain/view.php', array('id' => $cm->id));
@@ -58,74 +56,8 @@ echo $OUTPUT->header();
 // Replace the following lines with you own code.
 echo $OUTPUT->heading($cardtobrain->name);
 
-$alias = $cardtobrain->alias;
-$target = $cardtobrain->target;
-$linkText = '';
-
-if ($target = 0) {
-    $linkText = get_string('boxlearn', 'cardtobrain');
-} else {
-    $linkText = get_string('boxview', 'cardtobrain');
-}
-
-//Wurde SSO Aktiviert?
-$enableSSO = $CFG->cardtobrain_enablesso;
-if ($enableSSO == 1) {
-    //SSO URL
-    $ssoUrl = CARDTOBRAIN_SSO_URL;
-
-    //Form Params
-    $username = $USER->email;
-    $firstname = $USER->firstname;
-    $lastname = $USER->lastname;
-    $lang = 'de';
-    $apikey = $CFG->cardtobrain_apikey;
-    $apisecret = $CFG->cardtobrain_apisecret;
-    $timestamp = round(microtime(true) * 1000);
-    $page = '';
-    if ($target = 0) {
-        $page = 'boxlearn';
-    } else {
-        $page = 'box';
-    }
-    $box = $alias;
-
-    //Hash Params aufbereiten
-    $hashParams = array(
-        "username" => $username,
-        "firstname" => $firstname,
-        "lastname" => $lastname,
-        "lang" => $lang,
-        "apikey" => $apikey,
-        "timestamp" => $timestamp
-    );
-
-    $hash = cardtobrain_sso_hash($hashParams, $apisecret);
-
-    echo '
-    <form id="card2brainssoform" name="card2brainssoform" target="_blank" method="POST" action="'.$ssoUrl.'">
-        <input type="hidden" name="timestamp" value="'.$timestamp.'" />
-        <input type="hidden" name="username" value="'.$username.'" />
-        <input type="hidden" name="firstname" value="'.$firstname.'" />
-        <input type="hidden" name="lastname" value="'.$lastname.'" />
-        <input type="hidden" name="lang" value="'.$lang.'" />
-        <input type="hidden" name="apikey" value="'.$apikey.'" />
-        <input type="hidden" name="hash" value="'.$hash.'" />
-        <input type="hidden" name="page" value="'.$page.'" />
-        <input type="hidden" name="box" value="'.$box.'" />
-        <input type="submit" value="'.$linkText.'" />
-    </form>
-    ';
-
-} else {
-    $url = CARDTOBRAIN_BASE_URL;
-    if ($target = 0) {
-        $url .= ("learn/".$alias."/normal");
-    } else {
-        $url .= ("box/".$alias);
-    }
-    echo '<a href="'.$url.'" target="_blank">'.$linkText.'</a>';
-}
+//Link zu Kartei anzeigen
+cardtobrain_print_box_link($cardtobrain);
 
 // Finish the page.
 echo $OUTPUT->footer();

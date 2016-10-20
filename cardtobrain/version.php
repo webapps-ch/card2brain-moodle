@@ -28,8 +28,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_cardtobrain';
-$plugin->version = 11;
-$plugin->release = 'v0.11';
+$plugin->version = 14;
+$plugin->release = 'v0.14';
 $plugin->requires = 2014051200;
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->cron = 0;

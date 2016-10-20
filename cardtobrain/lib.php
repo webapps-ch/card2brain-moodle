@@ -32,13 +32,14 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Example constant, you probably want to remove this :-)
+ * Konstanten für card2brain Plugin
  */
 define('CARDTOBRAIN_BASE_URL', 'https://dev.webapps.ch/card2brain/');
 define('CARDTOBRAIN_SSO_URL', 'https://dev.webapps.ch/card2brain/SSO/login');
+define('CARDTOBRAIN_LANGUAGES', 'de-fr-en');
+define('CARDTOBRAIN_DEFAULT_LANGUAGE', 'en');
 
 /* Moodle core API */
-
 /**
  * Returns the information on whether the module supports a feature
  *
@@ -154,6 +155,96 @@ function cardtobrain_sso_hash($hashParams, $apiSecret) {
         }
     }
 
-    //SHA256 Hash zurückgeben
+    //SHA256 Hash zurückgeben (Upper Case)
     return strtoupper(hash('sha256', $encString));
+}
+
+/**
+ * Box Link anzeigen
+ * Oder: Falls SSO aktiv: Formular mit SSO Login
+ * @param $cardtobrain
+ */
+function cardtobrain_print_box_link($cardtobrain) {
+    global $CFG, $USER;
+
+    $alias = $cardtobrain->alias;
+    $target = $cardtobrain->target;
+
+    if ($target == 0) {
+        $linkText = get_string('boxlearn', 'cardtobrain');
+    } else {
+        $linkText = get_string('boxview', 'cardtobrain');
+    }
+
+    //Wurde SSO Aktiviert?
+    $enableSSO = $CFG->cardtobrain_enablesso;
+    if ($enableSSO == 1) {
+        //SSO URL
+        $ssoUrl = CARDTOBRAIN_SSO_URL;
+
+        //Form: User Params
+        $username = $USER->email;
+        $firstname = $USER->firstname;
+        $lastname = $USER->lastname;
+        $lang = $USER->lang;
+        //Verwende Default Language, falls Sprache nicht verfügbar ist:
+        if (!in_array($lang, explode('-', CARDTOBRAIN_LANGUAGES))) {
+            $lang = CARDTOBRAIN_DEFAULT_LANGUAGE;
+        }
+
+        //Form: API Params
+        $apikey = $CFG->cardtobrain_apikey;
+        $apisecret = $CFG->cardtobrain_apisecret;
+        $timestamp = round(microtime(true) * 1000);
+
+        //Form: Target Params
+        if ($target == 0) {
+            $page = 'boxlearn';
+        } else {
+            $page = 'box';
+        }
+        $box = $alias;
+
+        //Hash Params aufbereiten
+        $hashParams = array(
+            "username" => $username,
+            "firstname" => $firstname,
+            "lastname" => $lastname,
+            "lang" => $lang,
+            "apikey" => $apikey,
+            "timestamp" => $timestamp
+        );
+
+        //Hash für SSO berechnen
+        $hash = cardtobrain_sso_hash($hashParams, $apisecret);
+
+        //Formular zum SSO Login und redirect zur Kartei
+        echo '
+        <form id="card2brainssoform" name="card2brainssoform" target="_blank" method="POST" action="'.$ssoUrl.'">
+            <input type="hidden" name="timestamp" value="'.$timestamp.'" />
+            <input type="hidden" name="username" value="'.$username.'" />
+            <input type="hidden" name="firstname" value="'.$firstname.'" />
+            <input type="hidden" name="lastname" value="'.$lastname.'" />
+            <input type="hidden" name="lang" value="'.$lang.'" />
+            <input type="hidden" name="apikey" value="'.$apikey.'" />
+            <input type="hidden" name="hash" value="'.$hash.'" />
+            <input type="hidden" name="page" value="'.$page.'" />
+            <input type="hidden" name="box" value="'.$box.'" />
+            <input type="submit" value="'.$linkText.'" />
+        </form>
+        ';
+
+    } else {
+        //Zeige nur Link zur kartei, falls SSO nicht konfiguriert ist
+        $url = CARDTOBRAIN_BASE_URL;
+
+        if ($target == 0) {
+            $url .= ("learn/".$alias."/normal");
+        } else {
+            $url .= ("box/".$alias);
+        }
+
+        //Link zur Kartei
+        echo '<a href="'.$url.'" target="_blank">'.$linkText.'</a>';
+    }
 }
