@@ -15,13 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides code to be executed during the module installation
- *
- * This file replaces the legacy STATEMENTS section in db/install.xml,
- * lib.php/modulename_install() post installation hook and partially defaults.php.
+ * Add sets of flashcards from card2brain.ch to your Moodle courses.
+ * - link to flashcard list or learning view
+ * - enable SSO Authentication for your corporate account
  *
  * @package    mod_cardtobrain
- * @copyright  2016 Your Name <your@email.address>
+ * @copyright  2016 Salim Hermidas <salim.hermidas@webapps.ch>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

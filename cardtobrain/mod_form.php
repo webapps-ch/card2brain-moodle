@@ -15,13 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The main cardtobrain configuration form
- *
- * It uses the standard core Moodle formslib. For more info about them, please
- * visit: http://docs.moodle.org/en/Development:lib/formslib.php
+ * Add sets of flashcards from card2brain.ch to your Moodle courses.
+ * - link to flashcard list or learning view
+ * - enable SSO Authentication for your corporate account
  *
  * @package    mod_cardtobrain
- * @copyright  2016 Your Name <your@email.address>
+ * @copyright  2016 Salim Hermidas <salim.hermidas@webapps.ch>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -50,14 +49,17 @@ class mod_cardtobrain_mod_form extends moodleform_mod {
         // Adding the "general" fieldset, where all the common settings are showed.
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
+        // name for the cardtobrain instance
         $mform->addElement('text', 'name', get_string('boxname', 'cardtobrain'), array('size'=>'64'));
         $mform->setType('name', PARAM_TEXT);
         $mform->addRule('name', null, 'required', null, 'client');
 
+        // box alias
         $mform->addElement('text', 'alias', get_string('boxalias', 'cardtobrain'), array('size'=>'64'));
         $mform->setType('alias', PARAM_TEXT);
         $mform->addRule('alias', null, 'required', null, 'client');
 
+        // target of link or form (card list or learning view)
         $targetoptions = array(
             0 => get_string('targetlearn', 'cardtobrain'),
             1 => get_string('targetcards', 'cardtobrain')
@@ -65,6 +67,17 @@ class mod_cardtobrain_mod_form extends moodleform_mod {
         $mform->addElement('select', 'target', get_string('boxtarget', 'cardtobrain'), $targetoptions);
         $mform->setDefault('target', 0);
 
+        // show an iframe of the box
+        $mform->addElement('checkbox', 'showiframe', get_string('showiframe', 'cardtobrain'));
+
+        // display default intro editor (description)
+        $this->standard_intro_elements(get_string('cardtobrainintro', 'cardtobrain'));
+        $element = $mform->getElement('introeditor');
+        $attributes = $element->getAttributes();
+        $attributes['rows'] = 5;
+        $element->setAttributes($attributes);
+
+        // add default coursmodule settings
         $this->standard_coursemodule_elements();
 
         $this->add_action_buttons();

@@ -15,17 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file keeps track of upgrades to the cardtobrain module
- *
- * Sometimes, changes between versions involve alterations to database
- * structures and other major things that may break installations. The upgrade
- * function in this file will attempt to perform all the necessary actions to
- * upgrade your older installation to the current version. If there's something
- * it cannot do itself, it will tell you what you need to do.  The commands in
- * here will all be database-neutral, using the functions defined in DLL libraries.
+ * Add sets of flashcards from card2brain.ch to your Moodle courses.
+ * - link to flashcard list or learning view
+ * - enable SSO Authentication for your corporate account
  *
  * @package    mod_cardtobrain
- * @copyright  2016 Your Name <your@email.address>
+ * @copyright  2016 Salim Hermidas <salim.hermidas@webapps.ch>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -38,5 +33,19 @@ defined('MOODLE_INTERNAL') || die();
  * @return bool
  */
 function xmldb_cardtobrain_upgrade($oldversion) {
+    global $DB;
+    $dbman = $DB->get_manager();
+
+    // New field showiframe
+    if ($oldversion < 28) {
+        // Add new fields to cardtobrain table.
+        $table = new xmldb_table('cardtobrain');
+        $field = new xmldb_field('showiframe');
+        $field->set_attributes(XMLDB_TYPE_INTEGER, '1', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '0', 'target');
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+
     return true;
 }

@@ -14,15 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * English strings for cardtobrain
- *
- * You can have a rather longer description of the file as well,
- * if you like, and it can span multiple lines.
+ * Add sets of flashcards from card2brain.ch to your Moodle courses.
+ * - link to flashcard list or learning view
+ * - enable SSO Authentication for your corporate account
  *
  * @package    mod_cardtobrain
- * @copyright  2016 Your Name <your@email.address>
+ * @copyright  2016 Salim Hermidas <salim.hermidas@webapps.ch>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,7 +28,12 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['modulename'] = 'card2brain';
 $string['modulenameplural'] = 'card2brain Karteien';
-$string['modulename_help'] = 'Mit dem card2brain Modul können Karteien verlinkt werden. | Die Links können entweder auf die Karten- oder Lern-Ansicht verlinkt verden.';
+$string['modulenamelisttitle'] = 'Alle card2brain Karteien';
+$string['modulenametableheader'] = 'card2brain Kartei';
+$string['modulename_help'] = 'Mit dem card2brain Modul können Karteien verlinkt werden.
+Die Links können entweder auf die Karten- oder Lern-Ansicht verlinkt verden.
+
+Falls SSO aktiviert ist, werden die Benutzer automatisch auf card2brain.ch eingeloggt.';
 $string['cardtobrain:addinstance'] = 'Neue card2brain Kartei hinzufügen.';
 $string['cardtobrain:submit'] = 'Kartei speichern';
 $string['cardtobrain:view'] = 'Kartei anzeigen';
@@ -50,3 +53,6 @@ $string['apisecret'] = 'API Secret';
 $string['apisecrettext'] = 'API Secret der card2brain Corporation.';
 $string['boxlearn'] = 'Kartei Lernen';
 $string['boxview'] = 'Kartei Anzeigen';
+$string['cardtobrainintro'] = 'Beschreibung';
+$string['nocardtobrains'] = 'Keine card2brain Karteien';
+$string['showiframe'] = 'iFrame anzeigen';

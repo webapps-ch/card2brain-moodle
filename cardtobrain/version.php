@@ -15,22 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines the version and other meta-info about the plugin
- *
- * Setting the $plugin->version to 0 prevents the plugin from being installed.
- * See https://docs.moodle.org/dev/version.php for more info.
+ * Add sets of flashcards from card2brain.ch to your Moodle courses.
+ * - link to flashcard list or learning view
+ * - enable SSO Authentication for your corporate account
  *
  * @package    mod_cardtobrain
- * @copyright  2016 Your Name <your@email.address>
+ * @copyright  2016 Salim Hermidas <salim.hermidas@webapps.ch>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_cardtobrain';
-$plugin->version = 14;
-$plugin->release = 'v0.14';
+$plugin->version = 2016102300;
+$plugin->release = 'v1.0';
 $plugin->requires = 2014051200;
-$plugin->maturity = MATURITY_ALPHA;
+$plugin->maturity = MATURITY_STABLE;
 $plugin->cron = 0;
 $plugin->dependencies = array();

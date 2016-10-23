@@ -15,32 +15,28 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Library of interface functions and constants for module cardtobrain
- *
- * All the core Moodle functions, neeeded to allow the module to work
- * integrated in Moodle should be placed here.
- *
- * All the cardtobrain specific functions, needed to implement all the module
- * logic, should go to locallib.php. This will help to save some memory when
- * Moodle is performing actions across all modules.
+ * Add sets of flashcards from card2brain.ch to your Moodle courses.
+ * - link to flashcard list or learning view
+ * - enable SSO Authentication for your corporate account
  *
  * @package    mod_cardtobrain
- * @copyright  2016 Your Name <your@email.address>
+ * @copyright  2016 Salim Hermidas <salim.hermidas@webapps.ch>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Konstanten für card2brain Plugin
+ * Constansts for the cardtobrain module
+ * Change for development
  */
-define('CARDTOBRAIN_BASE_URL', 'https://dev.webapps.ch/card2brain/');
-define('CARDTOBRAIN_SSO_URL', 'https://dev.webapps.ch/card2brain/SSO/login');
+define('CARDTOBRAIN_BASE_URL', 'https://card2brain.ch/');
+define('CARDTOBRAIN_SSO_URL', 'https://card2brain.ch/SSO/login');
 define('CARDTOBRAIN_LANGUAGES', 'de-fr-en');
 define('CARDTOBRAIN_DEFAULT_LANGUAGE', 'en');
 
-/* Moodle core API */
 /**
+ * Moodle core API
  * Returns the information on whether the module supports a feature
  *
  * See {@link plugin_supports()} for more info.
@@ -54,8 +50,6 @@ function cardtobrain_supports($feature) {
         case FEATURE_MOD_INTRO:
             return true;
         case FEATURE_SHOW_DESCRIPTION:
-            return true;
-        case FEATURE_GRADE_HAS_GRADE:
             return true;
         case FEATURE_BACKUP_MOODLE2:
             return true;
@@ -81,8 +75,6 @@ function cardtobrain_add_instance(stdClass $cardtobrain, mod_cardtobrain_mod_for
 
     $cardtobrain->timecreated = time();
 
-    // You may have to add extra stuff in here.
-
     $cardtobrain->id = $DB->insert_record('cardtobrain', $cardtobrain);
 
     return $cardtobrain->id;
@@ -104,8 +96,6 @@ function cardtobrain_update_instance(stdClass $cardtobrain, mod_cardtobrain_mod_
 
     $cardtobrain->timemodified = time();
     $cardtobrain->id = $cardtobrain->instance;
-
-    // You may have to add extra stuff in here.
 
     $result = $DB->update_record('cardtobrain', $cardtobrain);
 
@@ -129,39 +119,39 @@ function cardtobrain_delete_instance($id) {
         return false;
     }
 
-    // Delete any dependent records here.
-
     $DB->delete_records('cardtobrain', array('id' => $cardtobrain->id));
 
     return true;
 }
 
 /**
+ * Generate SHA256 Hash for SSO Authentication
+ *
  * @param $hashParams
  * @param $apiSecret
- * @return string
+ * @return string: SHA256-Hash
  */
 function cardtobrain_sso_hash($hashParams, $apiSecret) {
 
-    //Nach Name Sortieren
+    // Sort params by name
     ksort($hashParams);
 
     $encString = "";
 
-    //Params zu String verbinden
+    // join params, values and apisecret
     foreach ($hashParams as $key => $value) {
         if ($value != null && $value != ""){
             $encString .= (strtoupper($key) . "=" . $value . $apiSecret);
         }
     }
 
-    //SHA256 Hash zurückgeben (Upper Case)
+    // return SHA256 Hash (upper case)
     return strtoupper(hash('sha256', $encString));
 }
 
 /**
- * Box Link anzeigen
- * Oder: Falls SSO aktiv: Formular mit SSO Login
+ * Print box link or SSO Authentication form
+ *
  * @param $cardtobrain
  */
 function cardtobrain_print_box_link($cardtobrain) {
@@ -176,28 +166,28 @@ function cardtobrain_print_box_link($cardtobrain) {
         $linkText = get_string('boxview', 'cardtobrain');
     }
 
-    //Wurde SSO Aktiviert?
+    // Is SSO Authentication enabled?
     $enableSSO = $CFG->cardtobrain_enablesso;
     if ($enableSSO == 1) {
-        //SSO URL
+        // SSO URL
         $ssoUrl = CARDTOBRAIN_SSO_URL;
 
-        //Form: User Params
+        // Form: user params
         $username = $USER->email;
         $firstname = $USER->firstname;
         $lastname = $USER->lastname;
         $lang = $USER->lang;
-        //Verwende Default Language, falls Sprache nicht verfügbar ist:
+        // Use CARDTOBRAIN_DEFAULT_LANGUAGE if user language is not suported
         if (!in_array($lang, explode('-', CARDTOBRAIN_LANGUAGES))) {
             $lang = CARDTOBRAIN_DEFAULT_LANGUAGE;
         }
 
-        //Form: API Params
+        // Form: API params
         $apikey = $CFG->cardtobrain_apikey;
         $apisecret = $CFG->cardtobrain_apisecret;
         $timestamp = round(microtime(true) * 1000);
 
-        //Form: Target Params
+        // Form: target params
         if ($target == 0) {
             $page = 'boxlearn';
         } else {
@@ -205,7 +195,7 @@ function cardtobrain_print_box_link($cardtobrain) {
         }
         $box = $alias;
 
-        //Hash Params aufbereiten
+        // Prepare hash params
         $hashParams = array(
             "username" => $username,
             "firstname" => $firstname,
@@ -215,12 +205,12 @@ function cardtobrain_print_box_link($cardtobrain) {
             "timestamp" => $timestamp
         );
 
-        //Hash für SSO berechnen
+        // Calculate hash for SSO Authentication
         $hash = cardtobrain_sso_hash($hashParams, $apisecret);
 
-        //Formular zum SSO Login und redirect zur Kartei
+        // print form for SSO Authentication
         echo '
-        <form id="card2brainssoform" name="card2brainssoform" target="_blank" method="POST" action="'.$ssoUrl.'">
+        <form id="ctob_form_'.$alias.'" name="ctob_form_'.$alias.'" target="_blank" method="POST" action="'.$ssoUrl.'">
             <input type="hidden" name="timestamp" value="'.$timestamp.'" />
             <input type="hidden" name="username" value="'.$username.'" />
             <input type="hidden" name="firstname" value="'.$firstname.'" />
@@ -235,7 +225,7 @@ function cardtobrain_print_box_link($cardtobrain) {
         ';
 
     } else {
-        //Zeige nur Link zur kartei, falls SSO nicht konfiguriert ist
+        // Only display a simple link to box
         $url = CARDTOBRAIN_BASE_URL;
 
         if ($target == 0) {
@@ -244,7 +234,72 @@ function cardtobrain_print_box_link($cardtobrain) {
             $url .= ("box/".$alias);
         }
 
-        //Link zur Kartei
+        // Link to the box
         echo '<a href="'.$url.'" target="_blank">'.$linkText.'</a>';
+    }
+}
+
+/**
+ * Print box description/intro
+ *
+ * @param $cardtobrain
+ * @param $cm
+ * @param $course
+ */
+function cardtobrain_print_intro($cardtobrain, $cm, $course) {
+    global $OUTPUT;
+
+    if (trim(strip_tags($cardtobrain->intro))) {
+        echo $OUTPUT->box_start('mod_introbox', 'cardtobrainintro');
+        echo format_module_intro('cardtobrain', $cardtobrain, $cm->id);
+        echo $OUTPUT->box_end();
+        echo '<br/>';
+    }
+}
+
+/**
+ * Embed card2brain box.
+ * Use JavaScript if SSO Authentication is enabled to Submit SSO form
+ *
+ * @param $cardtobrain
+ */
+function cardtobrain_print_box_iframe($cardtobrain) {
+    global $CFG, $PAGE;
+
+    $alias = $cardtobrain->alias;
+    $url = CARDTOBRAIN_BASE_URL.'box/'.$alias.'/embed';
+    $enableSSO = $CFG->cardtobrain_enablesso;
+
+    // iFrame embedd code
+    $br = '<br/>';
+    $iframe = '<iframe id="ctob_iframe_'.$alias.'" src="'.$url.'" width="100%" height="150" scrolling="no" frameborder="0"></iframe>';
+
+    // Is SSO Authentication enabled?
+    if ($enableSSO == 1) {
+        $containerSelector = 'div#ctob_container_'.$alias;
+        $formSelector = 'form#ctob_form_'.$alias;
+
+        // Include JavaScript
+        $PAGE->requires->js_call_amd('mod_cardtobrain/ctob', 'setup', array("container" => $containerSelector, "form" => $formSelector));
+
+        // Add container with overlying div
+        $container = '
+        <div style="position: relative; max-width: 780px;">
+            <div id="ctob_container_'.$alias.'" style="background: transparent; position: absolute; width: 100%; height: 100%; cursor: pointer;"></div>
+            '.$iframe.'
+        </div>';
+
+        // print iFrame in container
+        echo $container.$br;
+
+    } else {
+        // Add container without overlying div
+        $container = '
+        <div style="position: relative; max-width: 780px;">
+            '.$iframe.'
+        </div>';
+
+        // print iFrame in container
+        echo $container.$br;
     }
 }

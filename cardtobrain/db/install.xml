@@ -13,6 +13,7 @@
         <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Name of the Box"/>
         <FIELD NAME="alias" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Alias of the Box"/>
         <FIELD NAME="target" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" />
+        <FIELD NAME="showiframe" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" />
         <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"/>
         <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false"/>
       </FIELDS>

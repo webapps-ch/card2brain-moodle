@@ -14,7 +14,7 @@
 target/
 out/
 build.xml
-build/
+/build/
 nbproject/
 bin/
 .bash_history

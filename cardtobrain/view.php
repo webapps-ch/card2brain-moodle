@@ -15,48 +15,55 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Prints a particular instance of cardtobrain
- *
- * You can have a rather longer description of the file as well,
- * if you like, and it can span multiple lines.
+ * Add sets of flashcards from card2brain.ch to your Moodle courses.
+ * - link to flashcard list or learning view
+ * - enable SSO Authentication for your corporate account
  *
  * @package    mod_cardtobrain
- * @copyright  2016 Your Name <your@email.address>
+ * @copyright  2016 Salim Hermidas <salim.hermidas@webapps.ch>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-// Replace cardtobrain with the name of your module and remove this line.
 
 require_once('../../config.php');
 require_once('lib.php');
 
-$id = required_param('id', PARAM_INT);    // Course Module ID
+// Course Module ID
+$id = required_param('id', PARAM_INT);
 
+// Load Course Module instance
 if (!$cm = get_coursemodule_from_id('cardtobrain', $id)) {
-    print_error('Course Module ID was incorrect'); // NOTE this is invalid use of print_error, must be a lang string id
+    print_error('Course Module ID was incorrect');
 }
+// Load Course instance
 if (!$course = $DB->get_record('course', array('id'=> $cm->course))) {
-    print_error('course is misconfigured');  // NOTE As above
+    print_error('course is misconfigured');
 }
+// Load cardtobrain instance
 if (!$cardtobrain = $DB->get_record('cardtobrain', array('id'=> $cm->instance))) {
-    print_error('course module is incorrect'); // NOTE As above
+    print_error('course module is incorrect');
 }
 
+// Module requires logged in User
 require_login($course, true, $cm);
-
 
 // Print the page header.
 $PAGE->set_url('/mod/cardtobrain/view.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($cardtobrain->name));
 $PAGE->set_heading(format_string($course->fullname));
 
-// Output starts here.
+// Print page header
 echo $OUTPUT->header();
 
-// Replace the following lines with you own code.
+// Print page title
 echo $OUTPUT->heading($cardtobrain->name);
 
-//Link zu Kartei anzeigen
+// Print intro of cardtobrain instance
+cardtobrain_print_intro($cardtobrain, $cm, $course);
+// Print iframe for box if enabled
+if ($cardtobrain->showiframe == 1) {
+    cardtobrain_print_box_iframe($cardtobrain);
+}
+// Print link/form to the box
 cardtobrain_print_box_link($cardtobrain);
 
 // Finish the page.
