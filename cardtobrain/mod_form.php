@@ -71,11 +71,15 @@ class mod_cardtobrain_mod_form extends moodleform_mod {
         $mform->addElement('checkbox', 'showiframe', get_string('showiframe', 'cardtobrain'));
 
         // display default intro editor (description)
-        $this->standard_intro_elements(get_string('cardtobrainintro', 'cardtobrain'));
-        $element = $mform->getElement('introeditor');
-        $attributes = $element->getAttributes();
-        $attributes['rows'] = 5;
-        $element->setAttributes($attributes);
+        if ($CFG->branch >= 29) {
+            $this->standard_intro_elements(get_string('cardtobrainintro', 'cardtobrain'));
+            $element = $mform->getElement('introeditor');
+            $attributes = $element->getAttributes();
+            $attributes['rows'] = 5;
+            $element->setAttributes($attributes);
+        } else {
+            $this->add_intro_editor();
+        }
 
         // add default coursmodule settings
         $this->standard_coursemodule_elements();

@@ -274,8 +274,8 @@ function cardtobrain_print_box_iframe($cardtobrain) {
     $br = '<br/>';
     $iframe = '<iframe id="ctob_iframe_'.$alias.'" src="'.$url.'" width="100%" height="150" scrolling="no" frameborder="0"></iframe>';
 
-    // Is SSO Authentication enabled?
-    if ($enableSSO == 1) {
+    // Is SSO Authentication enabled and Moodle Version >= 29?
+    if ($enableSSO == 1 && $CFG->branch >= 29) {
         $containerSelector = 'div#ctob_container_'.$alias;
         $formSelector = 'form#ctob_form_'.$alias;
 
