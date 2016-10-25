@@ -33,9 +33,9 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 
 require_course_login($course);
 
-$strname = get_string('modulenamelisttitle', 'cardtobrain');
-$strnametable = get_string('modulenametableheader', 'cardtobrain');
-$strnameintro = get_string('cardtobrainintro', 'cardtobrain');
+$strname = get_string('modulenameplural', 'cardtobrain');
+$strnametable = get_string('modulenamesingle', 'cardtobrain');
+$strnameintro = get_string('boxintro', 'cardtobrain');
 
 $PAGE->set_url('/mod/cardtobrain/index.php', array('id' => $id));
 $PAGE->navbar->add($strname);

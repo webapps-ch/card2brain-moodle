@@ -26,33 +26,37 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+// Default module strings
 $string['modulename'] = 'card2brain';
 $string['modulenameplural'] = 'card2brain Karteien';
-$string['modulenamelisttitle'] = 'Alle card2brain Karteien';
-$string['modulenametableheader'] = 'card2brain Kartei';
-$string['modulename_help'] = 'Mit dem card2brain Modul können Karteien verlinkt werden.
-Die Links können entweder auf die Karten- oder Lern-Ansicht verlinkt verden.
-
-Falls SSO aktiviert ist, werden die Benutzer automatisch auf card2brain.ch eingeloggt.';
-$string['cardtobrain:addinstance'] = 'Neue card2brain Kartei hinzufügen.';
-$string['cardtobrain:submit'] = 'Kartei speichern';
-$string['cardtobrain:view'] = 'Kartei anzeigen';
-$string['cardtobrain'] = 'cardtobrain';
-$string['pluginadministration'] = 'card2brain administration';
+$string['modulenamesingle'] = 'card2brain Kartei';
 $string['pluginname'] = 'card2brain';
+$string['cardtobrain'] = 'cardtobrain';
+$string['cardtobrain:addinstance'] = 'card2brain Kartei erstellen';
+$string['cardtobrain:view'] = 'card2brain Kartei anzeigen';
+$string['pluginadministration'] = 'card2brain Plugin verwalten';
+$string['nocardtobrains'] = 'Keine card2brain Karteien';
+
+// Module help text
+$string['modulename_help'] = 'Mit dem SSO-Modul für card2brain kannst du Lernkarteien, die du auf card2brain.ch erstellt hast, so verlinken, dass deine Moodle-Benutzer direkt auf deine Lernkarten zugreifen können, ohne sich vorher bei card2brain.ch zu registrieren oder anzumelden.';
+
+// Module instance settings
 $string['boxname'] = 'Kartei';
 $string['boxalias'] = 'Kartei Alias';
+$string['boxalias_help'] = 'Das Kartei Alias ist der letzte Teil der URL. Z. B. bei "https://card2brain.ch/box/brain_test" ist "brain_test" das Alias.';
+$string['boxtarget'] = 'Link Ziel';
+$string['boxtarget_help'] = 'Hier kannst du einstellen, ob die Kartei direkt im Lernmodus oder in der Lernkartenansicht geöffnet werden soll.';
 $string['targetlearn'] = 'Lernen';
 $string['targetcards'] = 'Karten';
-$string['boxtarget'] = 'Link Ziel';
-$string['enablesso'] = 'SSO Aktivieren';
-$string['enablessotext'] = 'Aktiviere Single Sign On for card2brain.';
-$string['apikey'] = 'API Key';
-$string['apikeytext'] = 'API Key der card2brain Corporation.';
-$string['apisecret'] = 'API Secret';
-$string['apisecrettext'] = 'API Secret der card2brain Corporation.';
-$string['boxlearn'] = 'Kartei Lernen';
-$string['boxview'] = 'Kartei Anzeigen';
-$string['cardtobrainintro'] = 'Beschreibung';
-$string['nocardtobrains'] = 'Keine card2brain Karteien';
 $string['showiframe'] = 'iFrame anzeigen';
+$string['boxintro'] = 'Beschreibung';
+$string['boxlearn'] = 'Kartei lernen';
+$string['boxview'] = 'Karten anzeigen';
+
+// Module settings
+$string['enablesso'] = 'SSO aktivieren';
+$string['enablessotext'] = 'Aktiviere Single-Sign-On für card2brain Schul- und Firmenkonten.';
+$string['apikey'] = 'API Key';
+$string['apikeytext'] = 'API Key der card2brain Corporation. (Den API Key findest du im Admin Bereich deines card2brain Schul- bzw. Firmenkontos.)';
+$string['apisecret'] = 'API Secret';
+$string['apisecrettext'] = 'API Secret der card2brain Corporation. (Das API Secret findest du im Admin Bereich deines card2brain Schul- bzw. Firmenkontos.)';

@@ -250,7 +250,7 @@ function cardtobrain_print_intro($cardtobrain, $cm, $course) {
     global $OUTPUT;
 
     if (trim(strip_tags($cardtobrain->intro))) {
-        echo $OUTPUT->box_start('mod_introbox', 'cardtobrainintro');
+        echo $OUTPUT->box_start('mod_introbox', 'boxintro');
         echo format_module_intro('cardtobrain', $cardtobrain, $cm->id);
         echo $OUTPUT->box_end();
         echo '<br/>';

@@ -58,6 +58,7 @@ class mod_cardtobrain_mod_form extends moodleform_mod {
         $mform->addElement('text', 'alias', get_string('boxalias', 'cardtobrain'), array('size'=>'64'));
         $mform->setType('alias', PARAM_TEXT);
         $mform->addRule('alias', null, 'required', null, 'client');
+        $mform->addHelpButton('alias', 'boxalias', 'cardtobrain');
 
         // target of link or form (card list or learning view)
         $targetoptions = array(
@@ -66,13 +67,14 @@ class mod_cardtobrain_mod_form extends moodleform_mod {
         );
         $mform->addElement('select', 'target', get_string('boxtarget', 'cardtobrain'), $targetoptions);
         $mform->setDefault('target', 0);
+        $mform->addHelpButton('target', 'boxtarget', 'cardtobrain');
 
-        // show an iframe of the box
-        $mform->addElement('checkbox', 'showiframe', get_string('showiframe', 'cardtobrain'));
+        // show an iframe of the box (use advcheckbox to allow disable option)
+        $mform->addElement('advcheckbox', 'showiframe', get_string('showiframe', 'cardtobrain'), '', array(), array(0 , 1));
 
         // display default intro editor (description)
         if ($CFG->branch >= 29) {
-            $this->standard_intro_elements(get_string('cardtobrainintro', 'cardtobrain'));
+            $this->standard_intro_elements(get_string('boxintro', 'cardtobrain'));
             $element = $mform->getElement('introeditor');
             $attributes = $element->getAttributes();
             $attributes['rows'] = 5;

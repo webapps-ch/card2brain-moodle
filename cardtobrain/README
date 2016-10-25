@@ -1,0 +1,6 @@
+moodle-mod_cardtobrain
+
+With the SSO module for card2brain you can directly link your sets of flashcards.
+
+If you have a card2brain corporate account you can enable SSO authentication.
+With SSO enabled, your users can directly access the flashcards without login or register on card2brain.ch.
