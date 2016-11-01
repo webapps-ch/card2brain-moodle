@@ -15,9 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Add sets of flashcards from card2brain.ch to your Moodle courses.
- * - link to flashcard list or learning view
- * - enable SSO Authentication for your corporate account
+ * Defines backup_cardtobrain_activity_task class
  *
  * @package    mod_cardtobrain
  * @copyright  2016 Salim Hermidas <salim.hermidas@webapps.ch>

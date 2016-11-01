@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Prints a particular instance of cardtobrain
+ *
  * Add sets of flashcards from card2brain.ch to your Moodle courses.
  * - link to flashcard list or learning view
  * - enable SSO Authentication for your corporate account
@@ -27,23 +29,23 @@
 require_once('../../config.php');
 require_once('lib.php');
 
-// Course Module ID
+// Course Module ID.
 $id = required_param('id', PARAM_INT);
 
-// Load Course Module instance
+// Load Course Module instance.
 if (!$cm = get_coursemodule_from_id('cardtobrain', $id)) {
     print_error('Course Module ID was incorrect');
 }
-// Load Course instance
-if (!$course = $DB->get_record('course', array('id'=> $cm->course))) {
+// Load Course instance.
+if (!$course = $DB->get_record('course', array('id' => $cm->course))) {
     print_error('course is misconfigured');
 }
-// Load cardtobrain instance
-if (!$cardtobrain = $DB->get_record('cardtobrain', array('id'=> $cm->instance))) {
+// Load cardtobrain instance.
+if (!$cardtobrain = $DB->get_record('cardtobrain', array('id' => $cm->instance))) {
     print_error('course module is incorrect');
 }
 
-// Module requires logged in User
+// Module requires logged in User.
 require_login($course, true, $cm);
 
 // Print the page header.
@@ -51,19 +53,19 @@ $PAGE->set_url('/mod/cardtobrain/view.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($cardtobrain->name));
 $PAGE->set_heading(format_string($course->fullname));
 
-// Print page header
+// Print page header.
 echo $OUTPUT->header();
 
-// Print page title
+// Print page title.
 echo $OUTPUT->heading($cardtobrain->name);
 
-// Print intro of cardtobrain instance
+// Print intro of cardtobrain instance.
 cardtobrain_print_intro($cardtobrain, $cm, $course);
-// Print iframe for box if enabled
+// Print iframe for box if enabled.
 if ($cardtobrain->showiframe == 1) {
     cardtobrain_print_box_iframe($cardtobrain);
 }
-// Print link/form to the box
+// Print link/form to the box.
 cardtobrain_print_box_link($cardtobrain);
 
 // Finish the page.

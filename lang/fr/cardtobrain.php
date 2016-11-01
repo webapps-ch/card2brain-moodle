@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * French strings for cardtobrain
+ *
  * Add sets of flashcards from card2brain.ch to your Moodle courses.
  * - link to flashcard list or learning view
  * - enable SSO Authentication for your corporate account
@@ -26,37 +28,37 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// Default module strings
+// Default module strings.
 $string['modulename'] = 'card2brain';
-$string['modulenameplural'] = 'card2brain Karteien';
-$string['modulenamesingle'] = 'card2brain Kartei';
+$string['modulenameplural'] = 'Fichiers card2brain';
+$string['modulenamesingle'] = 'Fichier card2brain';
 $string['pluginname'] = 'card2brain';
 $string['cardtobrain'] = 'cardtobrain';
-$string['cardtobrain:addinstance'] = 'card2brain Kartei erstellen';
-$string['cardtobrain:view'] = 'card2brain Kartei anzeigen';
-$string['pluginadministration'] = 'card2brain Plugin verwalten';
-$string['nocardtobrains'] = 'Keine card2brain Karteien';
+$string['cardtobrain:addinstance'] = 'Créer un fichier card2brain';
+$string['cardtobrain:view'] = 'Afficher le fichier card2brain';
+$string['pluginadministration'] = 'Gérer le plug-in card2brain';
+$string['nocardtobrains'] = 'Aucun fichier card2brain';
 
-// Module help text
-$string['modulename_help'] = 'Mit dem SSO-Modul für card2brain kannst du Lernkarteien, die du auf card2brain.ch erstellt hast, so verlinken, dass deine Moodle-Benutzer direkt auf deine Lernkarten zugreifen können, ohne sich vorher bei card2brain.ch zu registrieren oder anzumelden.';
+// Module help text.
+$string['modulename_help'] = 'Grâce au module SSO pour card2brain, tu peux établir un lien pour les fichiers d’apprentissage que tu as créés sur card2brain.ch afin que tes utilisateurs Moodle puissent y accéder sans s’inscrire ou se connecter sur card2brain.ch préalablement.';
 
-// Module instance settings
-$string['boxname'] = 'Kartei';
-$string['boxalias'] = 'Kartei Alias';
-$string['boxalias_help'] = 'Das Kartei Alias ist der letzte Teil der URL. Z. B. bei "https://card2brain.ch/box/brain_test" ist "brain_test" das Alias.';
-$string['boxtarget'] = 'Link Ziel';
-$string['boxtarget_help'] = 'Hier kannst du einstellen, ob die Kartei direkt im Lernmodus oder in der Lernkartenansicht geöffnet werden soll.';
-$string['targetlearn'] = 'Lernen';
-$string['targetcards'] = 'Karten';
-$string['showiframe'] = 'iFrame anzeigen';
-$string['boxintro'] = 'Beschreibung';
-$string['boxlearn'] = 'Kartei lernen';
-$string['boxview'] = 'Karten anzeigen';
+// Module instance settings.
+$string['boxname'] = 'Fichier';
+$string['boxalias'] = 'Alias du fichier';
+$string['boxalias_help'] = 'L’alias du fichier est la dernière partie de l’URL. Par exemple, dans "https://card2brain.ch/box/brain_test“, "brain_test" est l’alias.';
+$string['boxtarget'] = 'Destination du lien';
+$string['boxtarget_help'] = 'Ici, tu peux régler si le fichier devra s’ouvrir directement en mode d’apprentissage ou en affichant un aperçu des cartes d’apprentissage.';
+$string['targetlearn'] = 'Apprendre';
+$string['targetcards'] = 'Cartes d’apprentissage';
+$string['showiframe'] = 'Afficher l’iFrame';
+$string['boxintro'] = 'Description';
+$string['boxlearn'] = 'Apprendre le fichier';
+$string['boxview'] = 'Afficher les cartes';
 
-// Module settings
-$string['enablesso'] = 'SSO aktivieren';
-$string['enablessotext'] = 'Aktiviere Single-Sign-On für card2brain Schul- und Firmenkonten.';
-$string['apikey'] = 'API Key';
-$string['apikeytext'] = 'API Key der card2brain Corporation. (Den API Key findest du im Admin Bereich deines card2brain Schul- bzw. Firmenkontos.)';
-$string['apisecret'] = 'API Secret';
-$string['apisecrettext'] = 'API Secret der card2brain Corporation. (Das API Secret findest du im Admin Bereich deines card2brain Schul- bzw. Firmenkontos.)';
+// Module settings.
+$string['enablesso'] = 'Activer SSO';
+$string['enablessotext'] = 'Active Single-Sign-On pour les comptes card2brain pour écoles et entreprises.';
+$string['apikey'] = 'Clé API';
+$string['apikeytext'] = 'Clé API de la corporation card2brain. (Tu trouveras la clé API dans l’espace admin de ton compte card2brain pour écoles ou entreprises.)';
+$string['apisecret'] = 'Secret API';
+$string['apisecrettext'] = 'Secret API de la corporation card2brain. (Tu trouveras le secret API dans l’espace admin de ton compte card2brain pour écoles ou entreprises.)';

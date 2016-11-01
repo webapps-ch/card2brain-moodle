@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * German strings for cardtobrain
+ *
  * Add sets of flashcards from card2brain.ch to your Moodle courses.
  * - link to flashcard list or learning view
  * - enable SSO Authentication for your corporate account
@@ -26,7 +28,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// Default module strings
+// Default module strings.
 $string['modulename'] = 'card2brain';
 $string['modulenameplural'] = 'card2brain Karteien';
 $string['modulenamesingle'] = 'card2brain Kartei';
@@ -37,10 +39,10 @@ $string['cardtobrain:view'] = 'card2brain Kartei anzeigen';
 $string['pluginadministration'] = 'card2brain Plugin verwalten';
 $string['nocardtobrains'] = 'Keine card2brain Karteien';
 
-// Module help text
+// Module help text.
 $string['modulename_help'] = 'Mit dem SSO-Modul für card2brain kannst du Lernkarteien, die du auf card2brain.ch erstellt hast, so verlinken, dass deine Moodle-Benutzer direkt auf deine Lernkarten zugreifen können, ohne sich vorher bei card2brain.ch zu registrieren oder anzumelden.';
 
-// Module instance settings
+// Module instance settings.
 $string['boxname'] = 'Kartei';
 $string['boxalias'] = 'Kartei Alias';
 $string['boxalias_help'] = 'Das Kartei Alias ist der letzte Teil der URL. Z. B. bei "https://card2brain.ch/box/brain_test" ist "brain_test" das Alias.';
@@ -53,7 +55,7 @@ $string['boxintro'] = 'Beschreibung';
 $string['boxlearn'] = 'Kartei lernen';
 $string['boxview'] = 'Karten anzeigen';
 
-// Module settings
+// Module settings.
 $string['enablesso'] = 'SSO aktivieren';
 $string['enablessotext'] = 'Aktiviere Single-Sign-On für card2brain Schul- und Firmenkonten.';
 $string['apikey'] = 'API Key';

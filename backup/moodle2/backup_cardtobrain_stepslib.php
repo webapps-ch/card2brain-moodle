@@ -27,7 +27,7 @@
 defined('MOODLE_INTERNAL') || die;
 
 /**
- * Define the complete cardtobrain structure for backup, with file and id annotations
+ * Define all the backup steps that will be used by the backup_cardtobrain_activity_task
  *
  * @package    mod_cardtobrain
  * @category   backup

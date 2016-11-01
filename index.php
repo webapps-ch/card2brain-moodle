@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Lists all cardtobrain modules of a page
+ *
  * Add sets of flashcards from card2brain.ch to your Moodle courses.
  * - link to flashcard list or learning view
  * - enable SSO Authentication for your corporate account
@@ -86,7 +88,8 @@ foreach ($cardtobrains as $cardtobrain) {
 
     $class = $cm->visible ? null : array('class' => 'dimmed');
 
-    $icon = '<img src="'.$OUTPUT->pix_url($cm->icon, 'cardtobrain').'icon" class="iconlarge activityicon" alt="'.get_string('modulename', 'cardtobrain').'" style="margin-right: 5px;"/>';
+    $icon = '<img src="'.$OUTPUT->pix_url($cm->icon, 'cardtobrain').'icon" class="iconlarge activityicon" alt="'
+            .get_string('modulename', 'cardtobrain').'" style="margin-right: 5px;"/>';
     $link = '<span class="instancename">'.$cm->get_formatted_name().'</span>';
 
     $row[] = html_writer::link(new moodle_url('view.php', array('id' => $cm->id)),

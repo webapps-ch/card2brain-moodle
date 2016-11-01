@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * This file keeps track of upgrades to the cardtobrain module
+ *
  * Add sets of flashcards from card2brain.ch to your Moodle courses.
  * - link to flashcard list or learning view
  * - enable SSO Authentication for your corporate account
@@ -36,7 +38,7 @@ function xmldb_cardtobrain_upgrade($oldversion) {
     global $DB;
     $dbman = $DB->get_manager();
 
-    // New field showiframe
+    // New field showiframe.
     if ($oldversion < 28) {
         // Add new fields to cardtobrain table.
         $table = new xmldb_table('cardtobrain');

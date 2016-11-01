@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * The main cardtobrain configuration form
+ *
  * Add sets of flashcards from card2brain.ch to your Moodle courses.
  * - link to flashcard list or learning view
  * - enable SSO Authentication for your corporate account
@@ -49,18 +51,18 @@ class mod_cardtobrain_mod_form extends moodleform_mod {
         // Adding the "general" fieldset, where all the common settings are showed.
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
-        // name for the cardtobrain instance
-        $mform->addElement('text', 'name', get_string('boxname', 'cardtobrain'), array('size'=>'64'));
+        // Name for the cardtobrain instance.
+        $mform->addElement('text', 'name', get_string('boxname', 'cardtobrain'), array('size' => '64'));
         $mform->setType('name', PARAM_TEXT);
         $mform->addRule('name', null, 'required', null, 'client');
 
-        // box alias
-        $mform->addElement('text', 'alias', get_string('boxalias', 'cardtobrain'), array('size'=>'64'));
+        // Box alias.
+        $mform->addElement('text', 'alias', get_string('boxalias', 'cardtobrain'), array('size' => '64'));
         $mform->setType('alias', PARAM_TEXT);
         $mform->addRule('alias', null, 'required', null, 'client');
         $mform->addHelpButton('alias', 'boxalias', 'cardtobrain');
 
-        // target of link or form (card list or learning view)
+        // Target of link or form (card list or learning view).
         $targetoptions = array(
             0 => get_string('targetlearn', 'cardtobrain'),
             1 => get_string('targetcards', 'cardtobrain')
@@ -69,10 +71,10 @@ class mod_cardtobrain_mod_form extends moodleform_mod {
         $mform->setDefault('target', 0);
         $mform->addHelpButton('target', 'boxtarget', 'cardtobrain');
 
-        // show an iframe of the box (use advcheckbox to allow disable option)
+        // Show an iframe of the box (use advcheckbox to allow disable option).
         $mform->addElement('advcheckbox', 'showiframe', get_string('showiframe', 'cardtobrain'), '', array(), array(0 , 1));
 
-        // display default intro editor (description)
+        // Display default intro editor (description).
         if ($CFG->branch >= 29) {
             $this->standard_intro_elements(get_string('boxintro', 'cardtobrain'));
             $element = $mform->getElement('introeditor');
@@ -83,7 +85,7 @@ class mod_cardtobrain_mod_form extends moodleform_mod {
             $this->add_intro_editor();
         }
 
-        // add default coursmodule settings
+        // Add default coursmodule settings.
         $this->standard_coursemodule_elements();
 
         $this->add_action_buttons();

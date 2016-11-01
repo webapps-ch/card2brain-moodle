@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * The global cardtobrain configuration form
+ *
  * Add sets of flashcards from card2brain.ch to your Moodle courses.
  * - link to flashcard list or learning view
  * - enable SSO Authentication for your corporate account
@@ -29,16 +31,16 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/cardtobrain/lib.php');
 
-    // Enable SSO Authentication (requires apikey and apisecret)
-    $settings->add(new admin_setting_configcheckbox('cardtobrain_enablesso', get_string('enablesso', 'cardtobrain'),
+    // Enable SSO Authentication (requires apikey and apisecret).
+    $settings->add(new admin_setting_configcheckbox('mod_cardtobrain/enablesso', get_string('enablesso', 'cardtobrain'),
         get_string('enablessotext', 'cardtobrain'), 0));
 
-    // apikey for card2brain.ch corporation
-    $settings->add(new admin_setting_configtext('cardtobrain_apikey', get_string('apikey', 'cardtobrain'),
+    // Apikey for card2brain.ch corporation.
+    $settings->add(new admin_setting_configtext('mod_cardtobrain/apikey', get_string('apikey', 'cardtobrain'),
         get_string('apikeytext', 'cardtobrain'), '', PARAM_TEXT));
 
-    // apisecret for card2brain.ch corporation
-    $settings->add(new admin_setting_configtext('cardtobrain_apisecret', get_string('apisecret', 'cardtobrain'),
+    // Apisecret for card2brain.ch corporation.
+    $settings->add(new admin_setting_configtext('mod_cardtobrain/apisecret', get_string('apisecret', 'cardtobrain'),
         get_string('apisecrettext', 'cardtobrain'), '', PARAM_TEXT));
 
 }

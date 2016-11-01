@@ -29,9 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/mod/cardtobrain/backup/moodle2/restore_cardtobrain_stepslib.php');
 
 /**
- * Restore task for the cardtobrain activity module
- *
- * Provides all the settings and steps to perform complete restore of the activity.
+ * Provides the restore_cardtobrain_activity_task class
  *
  * @package    mod_cardtobrain
  * @category   backup

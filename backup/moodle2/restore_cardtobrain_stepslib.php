@@ -24,8 +24,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
 /**
- * Structure step to restore one cardtobrain activity
+ * Define all the restore steps that will be used by the restore_cardtobrain_activity_task
  *
  * @package    mod_cardtobrain
  * @category   backup
